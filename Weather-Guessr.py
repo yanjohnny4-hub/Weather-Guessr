@@ -5,12 +5,77 @@ import random
 from datetime import date,timedelta
 
 # INITIALIZATIONS
-cities = [('Paris','FR'), ('Moscow','RU'), ('Beijing','CN'), ('Atlanta','US'), ('Seattle','US'), 
-          ('London','GB'), ('Barcelona','ES'), ('Kyoto','JP'), ('Sydney','AU'), ('Cairo','EG'), 
-          ('New York','US'), ('Los Angeles','US'), ('Tokyo','JP'), ('Mumbai','IN'), ('Delhi','IN'), 
-          ('São Paulo','BR'), ('Mexico City','MX'), ('Toronto','CA'), ('Vancouver','CA'), 
-          ('Dubai','AE'), ('Singapore','SG'), ('Hong Kong','HK'), ('Rome','IT'), ('Berlin','DE'), 
-          ('Amsterdam','NL')]
+cities = [
+    # Europe
+    ('Paris', 'FR'),
+    ('Moscow', 'RU'),
+    ('London', 'GB'),
+    ('Barcelona', 'ES'),
+    ('Rome', 'IT'),
+    ('Berlin', 'DE'),
+    ('Amsterdam', 'NL'),
+    ('Madrid', 'ES'),
+    ('Lisbon', 'PT'),
+    ('Vienna', 'AT'),
+    ('Prague', 'CZ'),
+    ('Stockholm', 'SE'),
+    ('Oslo', 'NO'),
+    ('Athens', 'GR'),
+    ('Dublin', 'IE'),
+
+    # North America
+    ('Atlanta', 'US'),
+    ('Seattle', 'US'),
+    ('New York', 'US'),
+    ('Los Angeles', 'US'),
+    ('Toronto', 'CA'),
+    ('Vancouver', 'CA'),
+    ('Mexico City', 'MX'),
+    ('Miami', 'US'),
+    ('Chicago', 'US'),
+    ('Montreal', 'CA'),
+    ('Havana', 'CU'),
+    ('Panama City', 'PA'),
+
+    # South America
+    ('São Paulo', 'BR'),
+    ('Buenos Aires', 'AR'),
+    ('Lima', 'PE'),
+    ('Bogotá', 'CO'),
+    ('Santiago', 'CL'),
+    ('Quito', 'EC'),
+    ('Montevideo', 'UY'),
+
+    # Asia
+    ('Beijing', 'CN'),
+    ('Tokyo', 'JP'),
+    ('Kyoto', 'JP'),
+    ('Seoul', 'KR'),
+    ('Singapore', 'SG'),
+    ('Hong Kong', 'HK'),
+    ('Mumbai', 'IN'),
+    ('Delhi', 'IN'),
+    ('Dubai', 'AE'),
+    ('Bangkok', 'TH'),
+    ('Jakarta', 'ID'),
+    ('Manila', 'PH'),
+    ('Hanoi', 'VN'),
+    ('Kathmandu', 'NP'),
+    ('Istanbul', 'TR'),
+
+    # Africa
+    ('Cairo', 'EG'),
+    ('Cape Town', 'ZA'),
+    ('Nairobi', 'KE'),
+    ('Lagos', 'NG'),
+    ('Casablanca', 'MA'),
+
+    # Oceania
+    ('Sydney', 'AU'),
+    ('Melbourne', 'AU'),
+    ('Auckland', 'NZ'),
+    ('Perth', 'AU'),
+]
 
 if 'city' not in st.session_state:
     st.session_state.city, st.session_state.code = random.choice(cities)
@@ -23,8 +88,10 @@ if 'score' not in st.session_state:
 if 'num_days' not in st.session_state:
     st.session_state.num_days = 7
 
+api_key = st.secrets["API_KEY"]
+
 def get_weather(city_name, country_code):
-    url = f"https://api.openweathermap.org/data/2.5/forecast?q={city_name},{country_code}&cnt=14&appid=24a6bd1b429296901fb8283e7af0607f&units=imperial"
+    url = f"https://api.openweathermap.org/data/2.5/forecast?q={city_name},{country_code}&cnt=14&appid={api_key}&units=imperial"
     response = requests.get(url)
     data = response.json()
     return data
